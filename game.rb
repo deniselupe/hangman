@@ -15,14 +15,13 @@ class Game
     @remaining_letters = ('a'..'z').to_a
     @solved_guess = []
     @wrong_guess = []
-    @display = []
+    @display = Array.new(word.length, '_')
   end
 
   # The game loops until there are no turns left or until the player wins
   def play_game
     until @turns_left.zero? || @winner == true
       display_output
-      print "You have #{@turns_left} guesses left."
       guess = input_guess
       eval_guess(guess)
       @turns_left -= 1
@@ -32,10 +31,13 @@ class Game
 
   # This prompts the player to make their next guess
   def input_guess
-    print "\nWhat's the next letter? "
+    print "\nGuessing Rules: \n\tYou can only guess one letter at a time. \n\tPrevious guesses are not allowed."
+    print "\n\nEnter a guess, 'save' to save your progress, or 'exit' to quit game: "
 
     until (guess = gets.chomp.downcase).match?(/^[a-z]{1}$/) && @remaining_letters.include?(guess)
-      print "\nYou can only guess one letter at a time. Previous guesses are not allowed. Please try again: "
+      display_output
+      print "\nGuessing Rules: \n\tYou can only guess one letter at a time. \n\tPrevious guesses are not allowed."
+      print "\n\nEnter a guess, 'save' to save your progress, or 'exit' to quit game: "
     end
 
     @remaining_letters.delete_at(@remaining_letters.index(guess))
@@ -54,33 +56,31 @@ class Game
     temp_word.each do |char|
       solved_guess.any? { |letter| letter == char } ? @display.push(char) : @display.push('_')
     end
-
-    display_output
   end
 
   # Display progress and incorrect guesses made so far
   def display_output
     Display.clear_screen
 
-    unless @display.empty?
-      puts "\n-----------------------------"
-      puts "\nProgress:"
-      puts "\n#{@display.join(' ')}"
-      puts "\n\nIncorrect Guesses:"
-      puts "\n#{@wrong_guess.join(', ')}"
-      puts "\n-----------------------------"
-    end
+    puts 'HANGMAN'
+    puts "\n-----------------------------"
+    puts "\nProgress:               Turns Left: #{@turns_left}"
+    puts "\n#{@display.join(' ')}"
+    puts "\n\nIncorrect Guesses:"
+    puts "\n#{@wrong_guess.join(', ')}"
+    puts "\n-----------------------------"
   end
 
   # Evaluates if the player wins or losses
   def winner_check
+    display_output
     @winner = true unless @display.include?('_')
 
     if @winner == false && @turns_left.zero?
-      puts "\nYou are out of turns. You lose!"
-      puts "Secret Word: #{@word}"
+      print "\nYou are out of turns. You lose!"
+      print "\nSecret Word: #{@word}"
     elsif @winner == true
-      puts "\nYou guessed the secret word! You win!"
+      print "\nYou guessed the secret word! You win!"
     end
   end
 end
