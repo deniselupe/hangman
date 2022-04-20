@@ -17,7 +17,9 @@ class Game
   def play_game
     until @turns_left.negative? || @winner == true
       guess = input_guess
-      # Evaluate guess, save guess as solved or wrong
+      eval_guess(guess)
+      display_output
+      puts "\nYou have #{@turns_left} guesses left."
       @turns_left -= 1
     end
   end
@@ -26,7 +28,7 @@ class Game
   def input_guess
     print "\nWhat's the next letter? "
 
-    until (guess = gets.chomp.downcase).match?(/^[a-z]{1}$/) && !remaining_letters.index(guess)
+    until (guess = gets.chomp.downcase).match?(/^[a-z]{1}$/) && @remaining_letters.include?(guess)
       print "\nYou can only guess one letter at a time. Previous guesses are not allowed. Please try again: "
     end
 
@@ -34,6 +36,7 @@ class Game
     guess
   end
 
+  # Evaluates a guess to determine if it's correct or not, and also updates @display value
   def eval_guess(guess)
     @display = []
     temp_word = @word.split('').map { |char| char }
@@ -42,5 +45,14 @@ class Game
     temp_word.each do |char|
       solved_guess.any? { |letter| letter == char } ? @display.push(char) : @display.push('_')
     end
+  end
+
+  def display_output
+    puts "\n-----------------------------"
+    puts "\nProgress:"
+    puts "\n#{@display.join(' ')}"
+    puts "\n\nIncorrect Guesses:"
+    puts "\n#{@wrong_guess.join(', ')}"
+    puts "\n-----------------------------"
   end
 end
