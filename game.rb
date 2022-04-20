@@ -6,7 +6,7 @@ class Game
 
   def initialize
     @word = File.readlines('word_list.txt').sample.strip
-    @turns_left = 7
+    @turns_left = 8
     @winner = false
     @remaining_letters = ('a'..'z').to_a
     @solved_guess = []
@@ -15,12 +15,13 @@ class Game
 
   # The game loops until there are no turns left or until the player wins
   def play_game
-    until @turns_left.negative? || @winner == true
+    until @turns_left.zero? || @winner == true
+      puts "\nYou have #{@turns_left} guesses left."
       guess = input_guess
       eval_guess(guess)
       display_output
-      puts "\nYou have #{@turns_left} guesses left."
       @turns_left -= 1
+      winner_check
     end
   end
 
@@ -40,13 +41,17 @@ class Game
   def eval_guess(guess)
     @display = []
     temp_word = @word.split('').map { |char| char }
+
+    # If the guess is correct, the letter gets placed in @solved_guess, otherwise it goes in @wrong_guess
     temp_word.any? { |char| char == guess } ? @solved_guess.push(guess) : @wrong_guess.push(guess)
 
+    # Updates the display to let the player know how much many letters they've guessed correctly so far
     temp_word.each do |char|
       solved_guess.any? { |letter| letter == char } ? @display.push(char) : @display.push('_')
     end
   end
 
+  # Display progress and incorrect guesses made so far
   def display_output
     puts "\n-----------------------------"
     puts "\nProgress:"
@@ -54,5 +59,16 @@ class Game
     puts "\n\nIncorrect Guesses:"
     puts "\n#{@wrong_guess.join(', ')}"
     puts "\n-----------------------------"
+  end
+
+  # Evaluates if the player wins or losses
+  def winner_check
+    @winner = true unless @display.include?('_')
+
+    if @winner == false && @turns_left.zero?
+      puts "\nYou are out of turns. You lose!"
+    elsif @winner == true
+      puts "\nYou guessed the secret word! You win!"
+    end
   end
 end
