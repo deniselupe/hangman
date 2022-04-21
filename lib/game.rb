@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'stylable'
+require_relative 'instructions'
 
 # Activating Monkey Patch so that CLI can have colored text
 String.include Stylable::String
@@ -8,6 +9,8 @@ String.include Stylable::String
 # This is the class for the game
 class Game
   attr_accessor :word, :turns_left, :winner, :remaining_letters, :solved_guess, :wrong_guess, :display, :guess
+
+  include Instructions
 
   def initialize
     @word = File.readlines('word_list.txt').sample.strip
@@ -17,6 +20,20 @@ class Game
     @solved_guess = []
     @wrong_guess = []
     @display = Array.new(word.length, '_')
+    game_intro
+  end
+
+  # Introduces game and asks player to start new game or load existing game
+  def game_intro
+    introduction
+    print "\nSelect Game Option: "
+
+    until (option = gets.chomp).match?(/^[1-2]{1}$/)
+      introduction
+      print "\nNot a valid option. Please select a valid game option: "
+    end
+
+    play_game if option == '1'
   end
 
   # The game loops until there are no turns left or until the player wins
@@ -30,14 +47,6 @@ class Game
       @turns_left -= 1
       winner_check
     end
-  end
-
-  # The guessing prompt that players see every turn
-  def guess_prompt
-    display_output
-
-    print "\nGuessing Rules: \n\tYou can only guess one letter at a time. \n\tPrevious guesses are not allowed."
-    print "\n\nEnter a guess, 'save' to save your progress, or 'exit' to quit game: "
   end
 
   # This ensures we get a qualified guess, 'save' to save progress, or 'exit' to quit game
@@ -67,19 +76,6 @@ class Game
     temp_word.each do |char|
       solved_guess.any? { |letter| letter == char } ? @display.push(char) : @display.push('_')
     end
-  end
-
-  # Display progress and incorrect guesses made so far
-  def display_output
-    Stylable.clear_screen
-
-    puts 'HANGMAN'
-    puts "\n-----------------------------"
-    puts "\nProgress:               Turns Left: #{@turns_left}"
-    puts "\n#{@display.join(' ')}"
-    puts "\n\nIncorrect Guesses:"
-    puts "\n#{@wrong_guess.join(', ')}"
-    puts "\n-----------------------------"
   end
 
   # Evaluates if the player wins or losses
