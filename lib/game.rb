@@ -7,7 +7,7 @@ String.include Stylable::String
 
 # This is the class for the game
 class Game
-  attr_accessor :word, :turns_left, :winner, :remaining_letters, :solved_guess, :wrong_guess, :display
+  attr_accessor :word, :turns_left, :winner, :remaining_letters, :solved_guess, :wrong_guess, :display, :guess
 
   def initialize
     @word = File.readlines('word_list.txt').sample.strip
@@ -22,27 +22,37 @@ class Game
   # The game loops until there are no turns left or until the player wins
   def play_game
     until @turns_left.zero? || @winner == true
-      display_output
-      guess = input_guess
+      guess_prompt
+      input_guess
+      break if @guess.match?(/^exit$/)
+
       eval_guess(guess)
       @turns_left -= 1
       winner_check
     end
   end
 
-  # This prompts the player to make their next guess
-  def input_guess
+  # The guessing prompt that players see every turn
+  def guess_prompt
+    display_output
+
     print "\nGuessing Rules: \n\tYou can only guess one letter at a time. \n\tPrevious guesses are not allowed."
     print "\n\nEnter a guess, 'save' to save your progress, or 'exit' to quit game: "
+  end
 
-    until (guess = gets.chomp.downcase).match?(/^[a-z]{1}$/) && @remaining_letters.include?(guess)
-      display_output
-      print "\nGuessing Rules: \n\tYou can only guess one letter at a time. \n\tPrevious guesses are not allowed."
-      print "\n\nEnter a guess, 'save' to save your progress, or 'exit' to quit game: "
+  # This ensures we get a qualified guess, 'save' to save progress, or 'exit' to quit game
+  def input_guess
+    loop do
+      guess_prompt
+      @guess = gets.chomp.downcase
+
+      if @guess.match?(/^[a-z]{1}$/) && @remaining_letters.include?(@guess)
+        @remaining_letters.delete_at(@remaining_letters.index(guess))
+        break
+      elsif @guess.match?(/^(save|exit)$/)
+        break
+      end
     end
-
-    @remaining_letters.delete_at(@remaining_letters.index(guess))
-    guess
   end
 
   # Evaluates a guess to determine if it's correct or not, and also updates @display value
