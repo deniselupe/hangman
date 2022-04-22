@@ -36,6 +36,7 @@ class Game
     end
 
     play_game if option == '1'
+    load_game if option == '2'
   end
 
   # The game loops until there are no turns left or until the player wins

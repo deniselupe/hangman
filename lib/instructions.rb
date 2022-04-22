@@ -43,4 +43,25 @@ module Instructions
     print "\nEnter the name of you save file: "
     gets.chomp
   end
+
+  def load_game_instructions
+    game_files = Dir.glob('../save_files/*yaml').map { |fname| File.basename(fname).split('.')[0] }
+    game_file_list = {}
+    game_files.each_with_index { |fname, index| game_file_list[index + 1] = fname }
+
+    Stylable.clear_screen
+    puts 'SAVED GAME FILES:'
+    game_file_list.each { |file| print "\n[#{file[0]}] #{file[1]}" }
+
+    print "\n\nPlease select the game file you'd like to load: "
+
+    until (option = gets.chomp.to_i).between?(1, game_files.length)
+      Stylable.clear_screen
+      puts 'SAVED GAME FILES:'
+      game_file_list.each { |file| print "\n[#{file[0]}] #{file[1]}" }
+      print "\n\nInvalid option. Please select the game file you'd like to load: "
+    end
+
+    "../save_files/#{game_file_list[option]}.yaml"
+  end
 end

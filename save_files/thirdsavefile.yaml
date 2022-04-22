@@ -1,0 +1,40 @@
+---
+word: remix
+turns_left: 4
+winner: false
+remaining_letters:
+- a
+- b
+- c
+- d
+- f
+- g
+- h
+- j
+- k
+- l
+- m
+- n
+- o
+- q
+- s
+- t
+- u
+- v
+- w
+- x
+- y
+- z
+solved_guess:
+- e
+- i
+- r
+wrong_guess:
+- p
+display:
+- r
+- e
+- _
+- i
+- _
+guess: save
