@@ -1,0 +1,47 @@
+---
+word: specifically
+turns_left: 6
+winner: false
+remaining_letters:
+- a
+- b
+- c
+- f
+- g
+- h
+- i
+- j
+- k
+- l
+- m
+- n
+- o
+- p
+- q
+- r
+- s
+- t
+- u
+- v
+- w
+- x
+- y
+- z
+solved_guess:
+- e
+wrong_guess:
+- d
+display:
+- _
+- _
+- e
+- _
+- _
+- _
+- _
+- _
+- _
+- _
+- _
+- _
+guess: save

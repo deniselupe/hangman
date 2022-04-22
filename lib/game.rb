@@ -2,15 +2,17 @@
 
 require_relative 'stylable'
 require_relative 'instructions'
+require_relative 'storage'
 
 # Activating Monkey Patch so that CLI can have colored text
 String.include Stylable::String
 
 # This is the class for the game
 class Game
-  attr_accessor :word, :turns_left, :winner, :remaining_letters, :solved_guess, :wrong_guess, :display, :guess
+  attr_reader :guess
 
   include Instructions
+  include Storage
 
   def initialize
     @word = File.readlines('word_list.txt').sample.strip
@@ -19,7 +21,7 @@ class Game
     @remaining_letters = ('a'..'z').to_a
     @solved_guess = []
     @wrong_guess = []
-    @display = Array.new(word.length, '_')
+    @display = Array.new(@word.length, '_')
     game_intro
   end
 
@@ -41,12 +43,14 @@ class Game
     until @turns_left.zero? || @winner == true
       guess_prompt
       input_guess
-      break if @guess.match?(/^exit$/)
+      break if @guess.match?(/^(save|exit)$/)
 
       eval_guess(guess)
       @turns_left -= 1
       winner_check
     end
+
+    save_progress if @guess.match?(/^save$/)
   end
 
   # This ensures we get a qualified guess, 'save' to save progress, or 'exit' to quit game
@@ -74,7 +78,7 @@ class Game
 
     # Updates the display to let the player know how much many letters they've guessed correctly so far
     temp_word.each do |char|
-      solved_guess.any? { |letter| letter == char } ? @display.push(char) : @display.push('_')
+      @solved_guess.any? { |letter| letter == char } ? @display.push(char) : @display.push('_')
     end
   end
 

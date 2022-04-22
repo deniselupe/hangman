@@ -37,4 +37,10 @@ module Instructions
     print "\nGuessing Rules: \n\tYou can only guess one letter at a time. \n\tPrevious guesses are not allowed."
     print "\n\nEnter a guess, 'save' to save your progress, or 'exit' to quit game: "
   end
+
+  def save_instructions
+    display_output
+    print "\nEnter the name of you save file: "
+    gets.chomp
+  end
 end
