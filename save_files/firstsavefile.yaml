@@ -1,8 +1,9 @@
 ---
-word: hopes
-turns_left: 2
+word: think
+turns_left: 3
 winner: false
 remaining_letters:
+- b
 - c
 - d
 - f
@@ -13,10 +14,10 @@ remaining_letters:
 - l
 - m
 - n
+- o
 - p
 - q
 - s
-- t
 - u
 - v
 - w
@@ -24,18 +25,17 @@ remaining_letters:
 - y
 - z
 solved_guess:
-- e
-- o
-wrong_guess:
-- a
+- t
 - i
-- r
-- b
-display:
-- _
-- o
-- _
+wrong_guess:
 - e
+- a
+- r
+display:
+- t
+- _
+- i
+- _
 - _
 guess: save
-save_fname: "../save_files/firstsavefile.yaml"
+save_fname: "./save_files/firstsavefile.yaml"

@@ -15,7 +15,7 @@ class Game
   include Storage
 
   def initialize
-    @word = File.readlines('word_list.txt').sample.strip
+    @word = File.readlines('./lib/word_list.txt').sample.strip
     @turns_left = 8
     @winner = false
     @remaining_letters = ('a'..'z').to_a
@@ -53,7 +53,7 @@ class Game
       winner_check
     end
 
-    print "\nQuitting game without saving progress. Goodbye!" if @guess.match?(/^exit$/)
+    puts "\nQuitting game without saving progress. Goodbye!" if @guess.match?(/^exit$/)
     save_progress if @guess.match?(/^save$/)
   end
 

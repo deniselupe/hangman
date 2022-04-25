@@ -7,7 +7,7 @@ require_relative 'instructions'
 module Storage
   # This creates a files that stores the player's progress for their game instance
   def save_progress
-    fname = @save_fname.nil? ? "../save_files/#{save_instructions}.yaml" : @save_fname
+    fname = @save_fname.nil? ? "./save_files/#{save_instructions}.yaml" : @save_fname
 
     save_info = YAML.dump({
                             'word' => @word,
@@ -22,7 +22,7 @@ module Storage
                           })
 
     File.open(fname, 'w') { |file| file.puts save_info }
-    print "\nYour progress has been saved to file '#{File.basename(fname).split('.')[0]}'. Goodbye!"
+    puts "\nYour progress has been saved to file '#{File.basename(fname).split('.')[0]}'. Goodbye!"
   end
 
   # Player can locate and load their game save file to resume their game instance
@@ -46,6 +46,6 @@ module Storage
   # Ensures that the saved game file gets deleted when the player reaches Game Over
   # This reduces clutter by ensuring only games still in progress are saved
   def delete_save_file
-    File.delete(@save_fname) if !@save_fname.nil?
+    File.delete(@save_fname) unless @save_fname.nil?
   end
 end

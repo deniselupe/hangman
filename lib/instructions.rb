@@ -47,7 +47,7 @@ module Instructions
 
   # Creates the hash that will list the saved game files for the player when loading existing game
   def game_file_list
-    game_files = Dir.glob('../save_files/*yaml').map { |fname| File.basename(fname).split('.')[0] }
+    game_files = Dir.glob('./save_files/*yaml').map { |fname| File.basename(fname).split('.')[0] }
     game_file_list = {}
     game_files.each_with_index { |fname, index| game_file_list[index + 1] = fname }
     game_file_list
@@ -65,6 +65,6 @@ module Instructions
       print "\nInvalid option. Please select the game file you'd like to load: "
     end
 
-    "../save_files/#{saved_games[option]}.yaml"
+    "./save_files/#{saved_games[option]}.yaml"
   end
 end
