@@ -42,4 +42,10 @@ module Storage
 
     play_game
   end
+
+  # Ensures that the saved game file gets deleted when the player reaches Game Over
+  # This reduces clutter by ensuring only games still in progress are saved
+  def delete_save_file
+    File.delete(@save_fname) if !@save_fname.nil?
+  end
 end

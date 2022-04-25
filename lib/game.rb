@@ -94,8 +94,10 @@ class Game
     if @winner == false && @turns_left.zero?
       print "\nYou are out of turns. You lose!"
       print "\nSecret Word: #{@word}"
+      delete_save_file
     elsif @winner == true
       print "\nYou guessed the secret word! You win!"
+      delete_save_file
     end
   end
 end
