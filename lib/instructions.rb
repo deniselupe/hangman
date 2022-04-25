@@ -38,30 +38,33 @@ module Instructions
     print "\n\nEnter a guess, 'save' to save your progress, or 'exit' to quit game: "
   end
 
+  # Prompts the player for a file name for their saved game file
   def save_instructions
     display_output
     print "\nEnter the name of you save file: "
     gets.chomp
   end
 
-  def load_game_instructions
+  # Creates the hash that will list the saved game files for the player when loading existing game
+  def game_file_list
     game_files = Dir.glob('../save_files/*yaml').map { |fname| File.basename(fname).split('.')[0] }
     game_file_list = {}
     game_files.each_with_index { |fname, index| game_file_list[index + 1] = fname }
+    game_file_list
+  end
 
+  # Prompts player to select the game file to resume game instance
+  def load_game_instructions
+    saved_games = game_file_list
     Stylable.clear_screen
     puts 'SAVED GAME FILES:'
-    game_file_list.each { |file| print "\n[#{file[0]}] #{file[1]}" }
-
+    saved_games.each { |file| print "\n[#{file[0]}] #{file[1]}" }
     print "\n\nPlease select the game file you'd like to load: "
 
-    until (option = gets.chomp.to_i).between?(1, game_files.length)
-      Stylable.clear_screen
-      puts 'SAVED GAME FILES:'
-      game_file_list.each { |file| print "\n[#{file[0]}] #{file[1]}" }
-      print "\n\nInvalid option. Please select the game file you'd like to load: "
+    until (option = gets.chomp.to_i).between?(1, saved_games.length)
+      print "\nInvalid option. Please select the game file you'd like to load: "
     end
 
-    "../save_files/#{game_file_list[option]}.yaml"
+    "../save_files/#{saved_games[option]}.yaml"
   end
 end

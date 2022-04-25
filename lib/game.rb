@@ -9,7 +9,7 @@ String.include Stylable::String
 
 # This is the class for the game
 class Game
-  attr_reader :guess
+  attr_reader :guess, :save_fname
 
   include Instructions
   include Storage
@@ -51,6 +51,7 @@ class Game
       winner_check
     end
 
+    print "\nQuitting game without saving progress. Goodbye!" if @guess.match?(/^exit$/)
     save_progress if @guess.match?(/^save$/)
   end
 

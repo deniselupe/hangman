@@ -1,24 +1,20 @@
 ---
-word: specifically
-turns_left: 6
+word: hopes
+turns_left: 2
 winner: false
 remaining_letters:
-- a
-- b
 - c
+- d
 - f
 - g
 - h
-- i
 - j
 - k
 - l
 - m
 - n
-- o
 - p
 - q
-- r
 - s
 - t
 - u
@@ -29,19 +25,17 @@ remaining_letters:
 - z
 solved_guess:
 - e
+- o
 wrong_guess:
-- d
+- a
+- i
+- r
+- b
 display:
 - _
+- o
 - _
 - e
 - _
-- _
-- _
-- _
-- _
-- _
-- _
-- _
-- _
 guess: save
+save_fname: "../save_files/firstsavefile.yaml"

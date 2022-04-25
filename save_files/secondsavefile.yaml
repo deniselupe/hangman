@@ -1,6 +1,6 @@
 ---
-word: attractions
-turns_left: 3
+word: tissue
+turns_left: 4
 winner: false
 remaining_letters:
 - b
@@ -11,13 +11,14 @@ remaining_letters:
 - h
 - j
 - k
+- l
 - m
 - n
 - o
 - p
 - q
-- r
 - s
+- t
 - u
 - v
 - w
@@ -25,22 +26,17 @@ remaining_letters:
 - y
 - z
 solved_guess:
-- a
-- t
 - i
-wrong_guess:
 - e
-- l
+wrong_guess:
+- a
+- r
 display:
-- a
-- t
-- t
 - _
-- a
-- _
-- t
 - i
 - _
 - _
 - _
+- e
 guess: save
+save_fname: "../save_files/secondsavefile.yaml"

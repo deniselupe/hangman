@@ -7,7 +7,7 @@ require_relative 'instructions'
 module Storage
   # This creates a files that stores the player's progress for their game instance
   def save_progress
-    fname = "../save_files/#{save_instructions}.yaml"
+    fname = @save_fname.nil? ? "../save_files/#{save_instructions}.yaml" : @save_fname
 
     save_info = YAML.dump({
                             'word' => @word,
@@ -17,10 +17,12 @@ module Storage
                             'solved_guess' => @solved_guess,
                             'wrong_guess' => @wrong_guess,
                             'display' => @display,
-                            'guess' => @guess
+                            'guess' => @guess,
+                            'save_fname' => fname
                           })
 
     File.open(fname, 'w') { |file| file.puts save_info }
+    print "\nYour progress has been saved to file '#{File.basename(fname).split('.')[0]}'. Goodbye!"
   end
 
   # Player can locate and load their game save file to resume their game instance
@@ -36,6 +38,7 @@ module Storage
     @wrong_guess = game_instance['wrong_guess']
     @display = game_instance['display']
     @guess = game_instance['guess']
+    @save_fname = game_instance['save_fname']
 
     play_game
   end
