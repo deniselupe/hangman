@@ -1,6 +1,6 @@
 ---
 word: tissue
-turns_left: 4
+turns_left: 3
 winner: false
 remaining_letters:
 - b
@@ -18,7 +18,6 @@ remaining_letters:
 - p
 - q
 - s
-- t
 - u
 - v
 - w
@@ -28,11 +27,12 @@ remaining_letters:
 solved_guess:
 - i
 - e
+- t
 wrong_guess:
 - a
 - r
 display:
-- _
+- t
 - i
 - _
 - _

@@ -25,6 +25,8 @@ class Game
     game_intro
   end
 
+  private
+
   # Introduces game and asks player to start new game or load existing game
   def game_intro
     introduction
