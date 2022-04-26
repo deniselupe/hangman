@@ -2,6 +2,8 @@
 
 This is my version of Hangman which can be played on the terminal. You can play the live version [here](https://replit.com/@deniselupe/hangman).
 
+![hangman_gameplay](https://user-images.githubusercontent.com/64881284/165208515-5753964c-855d-40c3-b39f-e672c8cdbd5d.gif)
+
 # Rules
 - The player has 8 turns to spell the secret word
 - The secret word is between 8 to 12 characters long
