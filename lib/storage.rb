@@ -26,8 +26,7 @@ module Storage
   end
 
   # Player can locate and load their game save file to resume their game instance
-  def load_game
-    fname = load_game_instructions
+  def load_game(fname)
     game_instance = YAML.load_file(fname)
 
     @word = game_instance['word']

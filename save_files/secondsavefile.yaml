@@ -1,22 +1,24 @@
 ---
-word: think
-turns_left: 2
+word: sunglasses
+turns_left: 4
 winner: false
 remaining_letters:
+- a
 - b
 - c
 - d
 - f
-- g
 - h
+- i
 - j
 - k
 - l
+- m
 - n
 - o
 - p
 - q
-- s
+- t
 - u
 - v
 - w
@@ -24,18 +26,21 @@ remaining_letters:
 - y
 - z
 solved_guess:
-- t
-- i
-wrong_guess:
 - e
-- a
+- g
+- s
+wrong_guess:
 - r
-- m
 display:
-- t
-- _
-- i
+- s
 - _
 - _
+- g
+- _
+- _
+- s
+- s
+- e
+- s
 guess: save
-save_fname: "./save_files/firstsavefile.yaml"
+save_fname: "./save_files/secondsavefile.yaml"

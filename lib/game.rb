@@ -38,7 +38,7 @@ class Game
     end
 
     play_game if option == '1'
-    load_game if option == '2'
+    load_game_menu if option == '2'
   end
 
   # The game loops until there are no turns left or until the player wins
@@ -93,10 +93,10 @@ class Game
 
     if @winner == false && @turns_left.zero?
       print "\nYou are out of turns. You lose!"
-      print "\nSecret Word: #{@word}"
+      puts "\nSecret Word: #{@word}"
       delete_save_file
     elsif @winner == true
-      print "\nYou guessed the secret word! You win!"
+      puts "\nYou guessed the secret word! You win!"
       delete_save_file
     end
   end
